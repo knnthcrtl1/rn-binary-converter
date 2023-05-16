@@ -5,23 +5,29 @@ import { selectList } from '../global/list'
 import {
   Controller,
   type Control as SelectControl,
+  type UseFormGetValues,
   type FieldValues
 } from 'react-hook-form'
 
 interface SelectProps {
-  errors?: any
+  errors?: unknown
   control: SelectControl<FieldValues, any>
+  name: string
+  getValues: UseFormGetValues<FieldValues>
+  rules: Record<string, unknown>
 }
 
 const SelectConverter: React.FC<SelectProps> = ({
   errors = {},
-  control
+  control,
+  name = '',
+  rules
 }: SelectProps) => {
   return (
     <Box>
       <Controller
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, value } }) => (
           <Select
             selectedValue={value}
             minWidth="200"
@@ -41,10 +47,13 @@ const SelectConverter: React.FC<SelectProps> = ({
             ))}
           </Select>
         )}
-        name="firstName"
-        rules={{ required: 'Field is required' }}
+        name={name}
+        rules={rules}
       />
-      {errors?.firstName ? <Text>This is required.</Text> : null}
+      {errors?.[name]?.type === 'required' && <Text>This is required.</Text>}
+      {errors?.[name]?.type === 'validate' && (
+        <Text>Please change this type.</Text>
+      )}
     </Box>
   )
 }

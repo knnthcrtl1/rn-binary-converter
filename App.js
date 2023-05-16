@@ -14,12 +14,16 @@ export default function App () {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    reset,
+    formState: { errors },
+    getValues
   } = useForm({
     defaultValues: {
-      firstName: ''
+      fromType: '',
+      toType: ''
     }
   })
+
   const onSubmit = (data) => {
     return null
   }
@@ -28,15 +32,30 @@ export default function App () {
     return (
       <Box>
         <Box>
-          <SelectConverter errors={errors} control={control} />
+          <SelectConverter
+            errors={errors}
+            control={control}
+            name="fromType"
+            rules={{
+              required: 'Field is required'
+            }}
+          />
         </Box>
         <Box marginTop="1">
-          {/* <SelectConverter errors={errors} control={control} /> */}
+          <SelectConverter
+            errors={errors}
+            control={control}
+            name="toType"
+            getValues={getValues}
+            rules={{
+              required: 'Field is required',
+              validate: (value) => value !== getValues('fromType')
+            }}
+          />
         </Box>
       </Box>
     )
   }
-
   const renderInput = () => {
     return (
       <Box alignItems="center" marginTop={2}>
@@ -70,7 +89,7 @@ export default function App () {
     return (
       <Box marginTop={2}>
         <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
-        <Button colorScheme="coolGray" marginTop={2}>
+        <Button colorScheme="coolGray" marginTop={2} onPress={() => reset()}>
           Reset
         </Button>
       </Box>
