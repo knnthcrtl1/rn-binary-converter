@@ -1,29 +1,28 @@
-import React from "react";
+import React from 'react'
 import {
   NativeBaseProvider,
   Box,
   Input,
   Button,
   TextArea,
-  Text,
-  FormControl,
-} from "native-base";
-import SelectConverter from "./src/Select/SelectConverter";
-import { useForm } from "react-hook-form";
+  Text
+} from 'native-base'
+import SelectConverter from './src/Select/SelectConverter'
+import { useForm } from 'react-hook-form'
 
-export default function App() {
+export default function App () {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
-      firstName: "",
-    },
-  });
+      firstName: ''
+    }
+  })
   const onSubmit = (data) => {
-    console.log("submiting with ", data);
-  };
+    // console.log("submiting with ", data);
+  }
 
   const renderSelect = () => {
     return (
@@ -35,16 +34,16 @@ export default function App() {
           {/* <SelectConverter errors={errors} control={control} /> */}
         </Box>
       </Box>
-    );
-  };
+    )
+  }
 
   const renderInput = () => {
     return (
       <Box alignItems="center" marginTop={2}>
         <Input mx="3" placeholder="Input" w="100%" />
       </Box>
-    );
-  };
+    )
+  }
 
   const renderTextArea = () => {
     return (
@@ -56,16 +55,16 @@ export default function App() {
           placeholderTextColor="black"
         />
       </Box>
-    );
-  };
+    )
+  }
 
   const renderTitle = () => {
     return (
       <Box mb={4} mt={2} alignItems="center">
         <Text fontSize={16}>App Converter</Text>
       </Box>
-    );
-  };
+    )
+  }
 
   const renderButton = () => {
     return (
@@ -75,8 +74,8 @@ export default function App() {
           Reset
         </Button>
       </Box>
-    );
-  };
+    )
+  }
 
   return (
     <NativeBaseProvider>
@@ -88,5 +87,5 @@ export default function App() {
         {renderTextArea()}
       </Box>
     </NativeBaseProvider>
-  );
+  )
 }
