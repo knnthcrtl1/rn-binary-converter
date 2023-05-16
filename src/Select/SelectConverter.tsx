@@ -11,9 +11,9 @@ import {
 
 interface SelectProps {
   errors?: Record<string, any>
-  control: SelectControl<FieldValues, any>
+  control?: SelectControl<FieldValues, any>
   name: string
-  getValues: UseFormGetValues<FieldValues>
+  getValues?: UseFormGetValues<FieldValues>
   rules: Record<string, any>
 }
 

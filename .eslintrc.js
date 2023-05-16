@@ -9,7 +9,15 @@ module.exports = {
     'eslint:recommended',
     'standard-with-typescript'
   ],
-  overrides: [],
+  overrides: [
+    // {
+    //   // enable the rule specifically for TypeScript files
+    //   files: ["*.ts", "*.mts", "*.cts", "*.tsx"],
+    //   rules: {
+    //     "@typescript-eslint/explicit-function-return-type": "error"
+    //   }
+    // }
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -18,6 +26,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-key': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 0
+    '@typescript-eslint/strict-boolean-expressions': 0,
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }

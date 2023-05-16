@@ -9,6 +9,7 @@ import {
 } from 'native-base'
 import SelectConverter from './src/Select/SelectConverter'
 import { useForm, Controller } from 'react-hook-form'
+import useConverter from './src/services/converter'
 
 export default function App () {
   const {
@@ -25,9 +26,11 @@ export default function App () {
     }
   })
 
+  const { result, convertBinary } = useConverter()
+
   const onSubmit = (data) => {
-    console.log(data)
-    return null
+    const { binaryNumber: bin, fromType, toType } = data
+    convertBinary(fromType, toType, bin)
   }
 
   const renderSelect = () => {
@@ -58,6 +61,7 @@ export default function App () {
       </Box>
     )
   }
+
   const renderInput = () => {
     return (
       <Box marginTop={2}>
@@ -74,12 +78,23 @@ export default function App () {
             />
           )}
           name="binaryNumber"
-          rules={{ required: 'Field is required' }}
+          rules={{
+            required: 'Field is required',
+            pattern: {
+              value: /^[0-1()|&]+$/
+            }
+          }}
         />
-        {errors?.binaryNumber && (
+        {errors?.binaryNumber?.type === 'required' && (
           <Text color="red.400" fontSize="9">
             This is required.
           </Text>
+        )}
+        {errors?.binaryNumber?.type === 'pattern' &&
+          getValues('fromType') === '1' && (
+            <Text color="red.400" fontSize="9">
+              Please input binary number only.
+            </Text>
         )}
       </Box>
     )
@@ -93,6 +108,7 @@ export default function App () {
           h={40}
           isDisabled={true}
           placeholderTextColor="black"
+          value={!isNaN(result) ? result : null}
         />
       </Box>
     )
