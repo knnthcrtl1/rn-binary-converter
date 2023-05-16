@@ -12,8 +12,12 @@ module.exports = {
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    project: ['./tsconfig.json']
   },
   plugins: ['react'],
-  rules: {}
+  rules: {
+    'react/jsx-key': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 0
+  }
 }

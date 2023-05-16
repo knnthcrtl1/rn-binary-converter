@@ -21,7 +21,7 @@ export default function App () {
     }
   })
   const onSubmit = (data) => {
-    // console.log("submiting with ", data);
+    return null
   }
 
   const renderSelect = () => {
