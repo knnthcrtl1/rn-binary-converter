@@ -6,18 +6,33 @@ import {
   Button,
   TextArea,
   Text,
+  FormControl,
 } from "native-base";
 import SelectConverter from "./src/Select/SelectConverter";
+import { useForm } from "react-hook-form";
 
 export default function App() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+    },
+  });
+  const onSubmit = (data) => {
+    console.log("submiting with ", data);
+  };
+
   const renderSelect = () => {
     return (
       <Box>
         <Box>
-          <SelectConverter />
+          <SelectConverter errors={errors} control={control} />
         </Box>
         <Box marginTop="1">
-          <SelectConverter />
+          {/* <SelectConverter errors={errors} control={control} /> */}
         </Box>
       </Box>
     );
@@ -27,17 +42,6 @@ export default function App() {
     return (
       <Box alignItems="center" marginTop={2}>
         <Input mx="3" placeholder="Input" w="100%" />
-      </Box>
-    );
-  };
-
-  const renderButton = () => {
-    return (
-      <Box marginTop={2}>
-        <Button onPress={() => console.log("hello world")}>Submit</Button>
-        <Button colorScheme="coolGray" marginTop={2}>
-          Reset
-        </Button>
       </Box>
     );
   };
@@ -62,6 +66,18 @@ export default function App() {
       </Box>
     );
   };
+
+  const renderButton = () => {
+    return (
+      <Box marginTop={2}>
+        <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
+        <Button colorScheme="coolGray" marginTop={2}>
+          Reset
+        </Button>
+      </Box>
+    );
+  };
+
   return (
     <NativeBaseProvider>
       <Box flex={1} safeArea paddingX="2" maxW="100%" w="480px">
