@@ -10,11 +10,11 @@ import {
 } from 'react-hook-form'
 
 interface SelectProps {
-  errors?: unknown
+  errors?: Record<string, any>
   control: SelectControl<FieldValues, any>
   name: string
   getValues: UseFormGetValues<FieldValues>
-  rules: Record<string, unknown>
+  rules: Record<string, any>
 }
 
 const SelectConverter: React.FC<SelectProps> = ({
