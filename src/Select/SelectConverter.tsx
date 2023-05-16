@@ -23,6 +23,9 @@ const SelectConverter: React.FC<SelectProps> = ({
   name = '',
   rules
 }: SelectProps) => {
+  const getValidate = errors?.[name]?.type === 'validate'
+  const getRequired = errors?.[name]?.type === 'required'
+
   return (
     <Box>
       <Controller
@@ -41,6 +44,7 @@ const SelectConverter: React.FC<SelectProps> = ({
             onValueChange={(itemValue: string) => {
               onChange(itemValue)
             }}
+            borderColor={getRequired || getValidate ? 'red.400' : null}
           >
             {selectList.map((e) => (
               <Select.Item label={e.name} value={e.id} />
@@ -50,9 +54,15 @@ const SelectConverter: React.FC<SelectProps> = ({
         name={name}
         rules={rules}
       />
-      {errors?.[name]?.type === 'required' && <Text>This is required.</Text>}
-      {errors?.[name]?.type === 'validate' && (
-        <Text>Please change this type.</Text>
+      {getRequired && (
+        <Text color="red.400" fontSize="9">
+          This is required.
+        </Text>
+      )}
+      {getValidate && (
+        <Text color="red.400" fontSize="9">
+          Please change this type.
+        </Text>
       )}
     </Box>
   )

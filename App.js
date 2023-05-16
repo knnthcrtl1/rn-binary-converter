@@ -8,7 +8,7 @@ import {
   Text
 } from 'native-base'
 import SelectConverter from './src/Select/SelectConverter'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 
 export default function App () {
   const {
@@ -20,11 +20,13 @@ export default function App () {
   } = useForm({
     defaultValues: {
       fromType: '',
-      toType: ''
+      toType: '',
+      binaryNumber: ''
     }
   })
 
   const onSubmit = (data) => {
+    console.log(data)
     return null
   }
 
@@ -58,8 +60,27 @@ export default function App () {
   }
   const renderInput = () => {
     return (
-      <Box alignItems="center" marginTop={2}>
-        <Input mx="3" placeholder="Input" w="100%" />
+      <Box marginTop={2}>
+        <Controller
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="Enter binary number"
+              w="100%"
+              keyboardType="number-pad"
+              value={value}
+              onChangeText={(val) => onChange(val)}
+              borderColor={errors?.binaryNumber && 'red.400'}
+            />
+          )}
+          name="binaryNumber"
+          rules={{ required: 'Field is required' }}
+        />
+        {errors?.binaryNumber && (
+          <Text color="red.400" fontSize="9">
+            This is required.
+          </Text>
+        )}
       </Box>
     )
   }
