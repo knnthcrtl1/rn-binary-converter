@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React from 'react'
 
-import { Box, CheckIcon, FormControl, Select, Text } from "native-base";
-import { selectList } from "../global/list";
+import { Box, CheckIcon, Select, Text } from 'native-base'
+import { selectList } from '../global/list'
 import {
   Controller,
-  Control as SelectControl,
-  FieldValues,
-} from "react-hook-form";
+  type Control as SelectControl,
+  type FieldValues
+} from 'react-hook-form'
 
 interface SelectProps {
-  errors?: any;
-  control: SelectControl<FieldValues, any>;
+  errors?: any
+  control: SelectControl<FieldValues, any>
 }
 
-const SelectConverter = ({ errors, control }: SelectProps) => {
-  const [service, setService] = useState<string>("");
-
-  console.log(errors);
-
+const SelectConverter: React.FC<SelectProps> = ({
+  errors = {},
+  control
+}: SelectProps) => {
   return (
     <Box>
       <Controller
@@ -29,13 +28,12 @@ const SelectConverter = ({ errors, control }: SelectProps) => {
             accessibilityLabel="Choose Type"
             placeholder="Choose Type"
             _selectedItem={{
-              bg: "teal.600",
-              endIcon: <CheckIcon size="5" />,
+              bg: 'teal.600',
+              endIcon: <CheckIcon size="5" />
             }}
             mt={1}
             onValueChange={(itemValue: string) => {
-              setService(itemValue);
-              onChange(itemValue);
+              onChange(itemValue)
             }}
           >
             {selectList.map((e) => (
@@ -44,11 +42,11 @@ const SelectConverter = ({ errors, control }: SelectProps) => {
           </Select>
         )}
         name="firstName"
-        rules={{ required: "Field is required" }}
+        rules={{ required: 'Field is required' }}
       />
-      {errors?.firstName && <Text>This is required.</Text>}
+      {errors?.firstName ? <Text>This is required.</Text> : null}
     </Box>
-  );
-};
+  )
+}
 
-export default SelectConverter;
+export default SelectConverter
