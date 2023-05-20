@@ -135,7 +135,7 @@ export default function App () {
   const renderTitle = () => {
     return (
       <Box mb={4} mt={2} alignItems="center">
-        <Text fontSize={16}>App Converter</Text>
+        <Text fontSize={18}>App Converter</Text>
       </Box>
     )
   }
