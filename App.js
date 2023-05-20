@@ -5,11 +5,14 @@ import {
   Input,
   Button,
   TextArea,
-  Text
+  Text,
+  Icon,
+  useClipboard
 } from 'native-base'
 import SelectConverter from './src/Select/SelectConverter'
 import { useForm, Controller } from 'react-hook-form'
 import useConverter from './src/services/converter'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function App () {
   const {
@@ -100,16 +103,28 @@ export default function App () {
     )
   }
 
+  const { onCopy } = useClipboard()
+
   const renderTextArea = () => {
     return (
       <Box marginTop={2}>
         <TextArea
           placeholder="Result"
-          h={40}
+          h={20}
           isDisabled={true}
           placeholderTextColor="black"
           value={result}
         />
+        <Button
+          leftIcon={<Icon as={Ionicons} name="copy" size="sm" />}
+          colorScheme="info"
+          onPress={() => onCopy(result)}
+          size="sm"
+          variant="outline"
+          marginTop={2}
+        >
+          Copy
+        </Button>
       </Box>
     )
   }
@@ -124,9 +139,15 @@ export default function App () {
 
   const renderButton = () => {
     return (
-      <Box marginTop={2}>
+      <Box
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        marginTop={2}
+        gap={2}
+      >
         <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
-        <Button colorScheme="coolGray" marginTop={2} onPress={() => reset()}>
+        <Button colorScheme="coolGray" onPress={() => reset()} small>
           Reset
         </Button>
       </Box>
