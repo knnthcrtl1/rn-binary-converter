@@ -81,7 +81,7 @@ export default function App () {
           rules={{
             required: 'Field is required',
             pattern: {
-              value: /^[0-1()|&]+$/
+              value: getValues('fromType') === '1' ? /^[0-1()|&]+$/ : null
             }
           }}
         />
