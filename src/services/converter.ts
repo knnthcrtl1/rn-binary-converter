@@ -5,12 +5,12 @@ const useConverter = () => {
 
   const convertBinary = (from: string, to: string, bin: string) => {
     console.log(from, to)
-    if (from === '1' && to === '2') {
-      const digit = parseInt(bin, 2)
+    if (from === '1') {
+      const strNumber = to === '2' ? undefined : to === '3' ? 8 : 16
+      const digit = parseInt(bin, 2).toString(strNumber)
 
-      setResult(digit.toString())
+      setResult(digit)
     } else if (from === '2' && to === '1') {
-      console.log('test')
       const response = Number(bin).toString(2)
       setResult(response)
     }

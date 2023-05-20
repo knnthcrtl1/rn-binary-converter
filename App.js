@@ -108,7 +108,7 @@ export default function App () {
           h={40}
           isDisabled={true}
           placeholderTextColor="black"
-          value={!isNaN(result) ? result : null}
+          value={result}
         />
       </Box>
     )
