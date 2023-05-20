@@ -105,6 +105,7 @@ export default function App () {
 
   const copyToClipboard = async () => {
     await Clipboard.setStringAsync(result)
+    if (result) alert('Copied to Clipboard!')
   }
 
   const renderTextArea = () => {
