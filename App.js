@@ -6,13 +6,13 @@ import {
   Button,
   TextArea,
   Text,
-  Icon,
-  useClipboard
+  Icon
 } from 'native-base'
 import SelectConverter from './src/Select/SelectConverter'
 import { useForm, Controller } from 'react-hook-form'
 import useConverter from './src/services/converter'
 import { Ionicons } from '@expo/vector-icons'
+import * as Clipboard from 'expo-clipboard'
 
 export default function App () {
   const {
@@ -29,7 +29,7 @@ export default function App () {
     }
   })
 
-  const { result, convertBinary } = useConverter()
+  const { result, convertBinary, setResult } = useConverter()
 
   const onSubmit = (data) => {
     const { binaryNumber: bin, fromType, toType } = data
@@ -103,7 +103,9 @@ export default function App () {
     )
   }
 
-  const { onCopy } = useClipboard()
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(result)
+  }
 
   const renderTextArea = () => {
     return (
@@ -118,7 +120,7 @@ export default function App () {
         <Button
           leftIcon={<Icon as={Ionicons} name="copy" size="sm" />}
           colorScheme="info"
-          onPress={() => onCopy(result)}
+          onPress={copyToClipboard}
           size="sm"
           variant="outline"
           marginTop={2}
@@ -137,6 +139,11 @@ export default function App () {
     )
   }
 
+  const handleReset = () => {
+    reset()
+    setResult('')
+  }
+
   const renderButton = () => {
     return (
       <Box
@@ -147,7 +154,7 @@ export default function App () {
         gap={2}
       >
         <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
-        <Button colorScheme="coolGray" onPress={() => reset()} small>
+        <Button colorScheme="coolGray" onPress={handleReset} small>
           Reset
         </Button>
       </Box>

@@ -25,7 +25,8 @@ const useConverter = () => {
 
   return {
     result,
-    convertBinary
+    convertBinary,
+    setResult
   }
 }
 
